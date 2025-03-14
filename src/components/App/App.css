@@ -1,0 +1,26 @@
+header {
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+h1 {
+    color: white;
+}
+
+.highlight {
+    color: darkgray;
+}
+
+.library {
+    background-color: white;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
