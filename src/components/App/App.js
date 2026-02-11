@@ -10,6 +10,25 @@ function App() {
   const [playlistTitle, setPlaylistTitle] = useState("New Playlist")
   const [playlistTracks, setPlaylistTracks] = useState([])
 
+  function addTrack(track) {
+    if(playlistTracks.find(currentTrack => currentTrack.id === track.id)) {
+      return;
+    }
+    else {
+      setPlaylistTracks(prev => [...prev, track])
+    }
+  }
+
+  function removeTrack(track) {
+    setPlaylistTracks(prev => {
+      return prev.filter(currentTrack => currentTrack.id !== track.id)
+    })
+  }
+
+  function updatePlaylistTitle(title) {
+    setPlaylistTitle(title)
+  }
+
   return (
     <div>
       <header>
@@ -20,10 +39,14 @@ function App() {
       <main>
         <SearchBar />
         <div className='library'>
-          <SearchResults searchResults={searchResults} />
+          <SearchResults
+          searchResults={searchResults}
+          addTrack={addTrack} />
           <Playlist
           playlistTitle={playlistTitle}
-          playlistTracks={playlistTracks}  />
+          playlistTracks={playlistTracks}
+          removeTrack={removeTrack}
+          titleChange={updatePlaylistTitle}  />
         </div>
       </main>
     </div>
