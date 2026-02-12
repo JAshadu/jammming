@@ -29,6 +29,18 @@ function App() {
     setPlaylistTitle(title)
   }
 
+  const savePlaylist = () => {
+    const trackUris = () => {
+      playlistTracks.map(track => {
+        return track.uri
+      })
+    }
+
+    const resetPlaylist = () => {
+      setPlaylistTracks([])
+    }
+  }
+
   return (
     <div>
       <header>
@@ -46,7 +58,8 @@ function App() {
           playlistTitle={playlistTitle}
           playlistTracks={playlistTracks}
           removeTrack={removeTrack}
-          titleChange={updatePlaylistTitle}  />
+          titleChange={updatePlaylistTitle}
+          savePlaylist={savePlaylist}  />
         </div>
       </main>
     </div>

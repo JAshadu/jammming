@@ -19,7 +19,6 @@ h1 {
 }
 
 .library {
-    background-color: white;
     display: flex;
     justify-content: space-evenly;
     width: 100%;

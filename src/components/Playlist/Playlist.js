@@ -8,7 +8,7 @@ function Playlist(props) {
             <Tracklist 
             tracks={props.playlistTracks}
             removeTrack={props.removeTrack} />
-            <button>Save To Spotify</button>
+            <button onClick={props.savePlaylist}>Save To Spotify</button>
         </div>
     )
 }
