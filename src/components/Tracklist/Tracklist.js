@@ -13,7 +13,8 @@ function Tracklist(props) {
             artist={track.artist}
             album={track.album}
             addTrack={props.addTrack}
-            removeTrack={props.removeTrack} />
+            removeTrack={props.removeTrack}
+            track={track} />
           )
         })}
       </div>

@@ -7,8 +7,12 @@ function Track(props) {
         <h3>{props.name}</h3>
         <h4>{props.artist} | {props.album}</h4>
       </div>
-      <button onClick={props.addTrack}>+</button>
-      <button onClick={props.removeTrack}>-</button>
+      {props.addTrack && (
+        <button onClick={() => props.addTrack(props.track)}>+</button>
+      )}
+      {props.removeTrack && (
+        <button onClick={() => props.removeTrack(props.track)}>-</button>
+      )}
     </div>
   );
 }
