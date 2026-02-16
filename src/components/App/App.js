@@ -95,6 +95,44 @@ function App() {
       spotifyToken();
     }
   }, []);
+
+  const search = async (input) => {
+    let accessToken = localStorage.getItem('access_token');
+
+    if (!accessToken) {
+      requestUserAuth();
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://api.spotify.com/v1/search?q=${encodeURIComponent(input)}&type=track`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + accessToken
+          }
+        }
+      );
+
+      if (response.ok) {
+        const jsonResponse = await response.json();
+
+        const tracks = jsonResponse.tracks.items.map(track => ({
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.album.name,
+          uri: track.uri
+        }));
+
+        setSearchResults(tracks);
+      } else {
+        console.log("Search failed:", response.status);
+      }
+    } catch (errors) {
+      console.log(errors);
+    }
+  };
     
   return (
     <div>
@@ -104,7 +142,8 @@ function App() {
         </h1>
       </header>
       <main>
-        <SearchBar />
+        <SearchBar
+        search={search} />
         <div className='library'>
           <SearchResults
           searchResults={searchResults}
