@@ -7,7 +7,7 @@ import requestUserAuth from '../../assets/Spotify';
 
 function App() {
   const [searchResults, setSearchResults] = useState([])
-  const [playlistTitle, setPlaylistTitle] = useState("New Playlist")
+  const [playlistTitle, setPlaylistTitle] = useState("")
   const [playlistTracks, setPlaylistTracks] = useState([])
 
   function addTrack(track) {
@@ -29,11 +29,63 @@ function App() {
     setPlaylistTitle(title)
   }
 
-  const savePlaylist = () => {
-    const trackUris = playlistTracks.map(track => track.uri)
+  const savePlaylist = async () => {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      requestUserAuth();
+      return;
+    }
 
-    const resetPlaylist = () => {
+    if (!playlistTitle || playlistTracks.length === 0) {
+      return;
+    }
+
+    const trackUris = playlistTracks.map(track => track.uri);
+
+    const userResponse = await fetch('https://api.spotify.com/v1/me', {
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      }
+    });
+
+    const userData = await userResponse.json();
+    const userID = userData.id;
+    
+    try{
+      const createPlaylist = await fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: playlistTitle,
+          public: false,
+          description: ""
+        })
+      })
+
+      const playlistData = await createPlaylist.json();
+      const playlistId = playlistData.id;
+
+      await fetch(
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer ' + accessToken,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            uris: trackUris
+          })
+        }
+      );
+
+      setPlaylistTitle("")
       setPlaylistTracks([])
+    } catch(error) {
+      console.log(error)
     }
   }
 
