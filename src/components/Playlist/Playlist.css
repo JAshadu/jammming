@@ -1,0 +1,30 @@
+.playlist {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 40%;
+    height: 65vh;
+    gap: 1rem;
+    border: 4px solid darkgrey;
+}
+
+.playlist input {
+    width: 96%;
+    font-size: 1.8rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+.playlist .Tracklist {
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.saveButton {
+    font-size: 1.5rem;
+    width: 50%;
+    cursor: pointer;
+}

@@ -1,0 +1,6 @@
+.SearchResults {
+    width: 40%;
+    height: 65vh;
+    border: 4px solid darkgrey;
+    overflow-y: scroll;
+}
