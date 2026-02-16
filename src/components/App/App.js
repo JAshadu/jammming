@@ -81,10 +81,12 @@ function App() {
           })
         }
       );
-
+      
+      alert(`"${playlistTitle}" has been added to your Spotify library successfully`)
       setPlaylistTitle("")
       setPlaylistTracks([])
-    } catch(error) {
+    }
+    catch(error) {
       console.log(error)
     }
   }
