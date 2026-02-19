@@ -144,8 +144,7 @@ function App() {
     if (!token && !code) {
       requestUserAuth();
     }
-
-    if (code) {
+    else if (code) {
       spotifyToken();
     }
   }, []);
