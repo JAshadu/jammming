@@ -98,7 +98,8 @@ function App() {
     if (!code) return;
 
     const clientId = process.env.REACT_APP_CLIENT_ID;
-    const redirectUri = "http://127.0.0.1:3000";
+    const redirectUri = "https://jaa-jammming.netlify.app/";
+    /*const redirectUri = "http://127.0.0.1:3000"; (for testing)*/
 
 
     const getToken = async code => {
